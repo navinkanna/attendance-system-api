@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 
 from app.database import Base, engine
 from app.routers.class_router import router as class_router
@@ -21,3 +22,6 @@ app.include_router(class_router)
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+handler = Mangum(app)
