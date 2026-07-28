@@ -33,6 +33,7 @@ jobs:
           sam deploy \
             --stack-name attendance-system-api \
             --resolve-image-repos \
+            --resolve-s3 \
             --capabilities CAPABILITY_IAM \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \
