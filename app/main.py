@@ -3,7 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
 from app.database import Base, engine
+from app.models import (  # noqa: F401 (register models for create_all)
+    attendance_model,
+    class_model,
+    class_registration_model,
+    student_model,
+)
+from app.routers.attendance_router import router as attendance_router
+from app.routers.class_registration_router import router as class_registration_router
 from app.routers.class_router import router as class_router
+from app.routers.student_router import router as student_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -17,6 +26,9 @@ app.add_middleware(
 )
 
 app.include_router(class_router)
+app.include_router(student_router)
+app.include_router(class_registration_router)
+app.include_router(attendance_router)
 
 
 @app.get("/health")
